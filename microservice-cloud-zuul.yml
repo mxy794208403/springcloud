@@ -1,0 +1,47 @@
+spring:
+  profiles:
+    active: dev
+---
+server:
+  port: 7001
+spring:
+  profiles: dev
+  application:
+    name: microservice-zuul-dev
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka1.com:6001/eureka/,http://eureka2.com:6002/eureka/
+  instance:
+    instanceId: ${spring.application.name}:${server.port}
+    prefer-ip-address: true
+zuul:
+  routes:
+    provider-product:
+      path: /product/**
+      serviceId: microservice-product
+      stripPrefix: false
+---
+server:
+  port: 7002
+spring:
+  profiles: prod
+  application:
+    name: microservice-zuul-prod
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka1.com:6001/eureka/,http://eureka2.com:6002/eureka/
+  instance:
+    instanceId: ${spring.application.name}:${server.port}
+    prefer-ip-address: true
+zuul:
+  routes:
+    provider-product:
+      path: /product/**
+      serviceId: microservice-product
+      stripPrefix: false

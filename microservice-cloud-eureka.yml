@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    active: dev
+---
+server:
+  port: 6001
+spring:
+  profiles: dev
+  application:
+    name: microservice-eureka-dev
+eureka:
+  instance:
+    hostname: eureka1.com
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://eureka1.com:6001/eureka
+---
+server:
+  port: 6002
+spring:
+  profiles: prod
+  application:
+    name: microservice-eureka-prod
+eureka:
+  instance:
+    hostname: eureka2.com
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://eureka2.com:6002/eureka
